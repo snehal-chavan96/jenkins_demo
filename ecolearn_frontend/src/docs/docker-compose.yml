@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # Frontend Service
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ecolearn-frontend
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_BASE_URL=http://backend:8080/api
+    networks:
+      - ecolearn-network
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+  # Backend Service (Spring Boot)
+  # Uncomment and configure when integrating with Spring Boot backend
+  backend:
+    image: ecolearn-backend:latest  # Replace with your Spring Boot image
+    container_name: ecolearn-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - DATABASE_URL=${DATABASE_URL}
+    networks:
+      - ecolearn-network
+    restart: unless-stopped
+    # Uncomment if using a database
+    # depends_on:
+    #   - db
+
+  # Database Service (Optional - PostgreSQL example)
+  # db:
+  #   image: postgres:15-alpine
+  #   container_name: ecolearn-db
+  #   environment:
+  #     POSTGRES_DB: ecolearn
+  #     POSTGRES_USER: ${DB_USER}
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - ecolearn-network
+  #   restart: unless-stopped
+
+networks:
+  ecolearn-network:
+    driver: bridge
+
+# Uncomment if using database
+# volumes:
+#   postgres_data:

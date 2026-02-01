@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+
+# Node
+**/node_modules
+**/.npm
+
+# Maven
+**/target
+
+# Env files
+.env
+.env.*
+
+# OS
+.DS_Store
+
+# Logs
+**/*.log
+
+Thumbs.db
+
+# Dockerfiles inside subprojects (not used)
+ecolearn_backend/Dockerfile
+ecolearn_frontend/Dockerfile
