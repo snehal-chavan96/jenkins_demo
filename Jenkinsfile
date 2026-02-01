@@ -14,12 +14,6 @@ pipeline {
             }
         }
 
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/snehal-chavan96/jenkins_demo.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
